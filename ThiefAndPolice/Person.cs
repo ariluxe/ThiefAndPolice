@@ -12,8 +12,8 @@ namespace ThiefAndPolice
 
         public Person()
         {
-            PositionY = Random.Shared.Next(0,26);
-            PositionX = Random.Shared.Next(0,101);
+            PositionY = Random.Shared.Next(0, 26);
+            PositionX = Random.Shared.Next(0, 101);
             Inventory = new List<Item>();
         }
 
@@ -51,5 +51,40 @@ namespace ThiefAndPolice
                     break;
             }
         }
+
+
+        // Subklasser
+
+        public class Citizen : Person
+        {
+            public Citizen(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            {
+                Char citizen = 'C';
+                Inventory.Add("Keys");
+                Inventory.Add("Mobilephone");
+                Inventory.Add("Money");
+                Inventory.Add("Watch");
+            }
+        }
+
+
+        public class Thief : Person
+        {
+            public Thief(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            {
+                Char thief = 'T';
+
+            }
+        }
+
+        public class Police : Person
+        {
+            public Police(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            {
+                Char police = 'P';
+            }
+
+        }
     }
+
 }
