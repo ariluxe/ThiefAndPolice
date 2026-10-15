@@ -10,9 +10,17 @@
         static void Main(string[] args)
         {
 
-            Police police1 = new Police();
-            Thief thief1 = new Thief();
-            Citizen citizen1 = new Citizen();
+            //Skapa Stad
+            City city = new City(width: 100, height: 25, numberOfPolice: 10, numberOfThieves: 20, numberOfCitizens: 30);
+            // while (true) {
+            // city.UpdateMovement();
+            // city.UpdateInteractions();
+            // city.Render();
+            //}
+
+            Police police1 = new Police(city);
+            Thief thief1 = new Thief(city);
+            Citizen citizen1 = new Citizen(city);
 
             Console.WriteLine("Invånare inventory: ");
             foreach (Item item in citizen1.Inventory)
@@ -51,9 +59,6 @@
             // Stadens storlek
             //const int CityWidth = 100;
             //const int CityWith = 25;
-
-
-
 
 
         }
