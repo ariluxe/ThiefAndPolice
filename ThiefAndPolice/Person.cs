@@ -10,11 +10,15 @@ namespace ThiefAndPolice
         public int PositionY { get; set; }
         public List<Item> Inventory { get; set; }
 
+        public char Char { get; set; }
+
         public Person()
         {
             PositionY = Random.Shared.Next(0, 26);
             PositionX = Random.Shared.Next(0, 101);
             Inventory = new List<Item>();
+
+
         }
 
         public void Movement()
@@ -51,40 +55,60 @@ namespace ThiefAndPolice
                     break;
             }
         }
+    }
 
 
         // Subklasser
 
-        public class Citizen : Person
+        internal class Citizen : Person
         {
-            public Citizen(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            public Citizen() : base()
             {
-                Char citizen = 'C';
-                Inventory.Add("Keys");
-                Inventory.Add("Mobilephone");
-                Inventory.Add("Money");
-                Inventory.Add("Watch");
+                Char = 'C';
+                Inventory.Add(new Item("Keys"));
+                Inventory.Add(new Item("Mobilephone"));
+                Inventory.Add(new Item("Money"));
+                Inventory.Add(new Item("Watch"));
             }
         }
 
 
-        public class Thief : Person
+        internal class Thief : Person
         {
-            public Thief(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            public Thief() : base()
             {
-                Char thief = 'T';
+                Char = 'T';
 
+            }
+
+            public void Robbery(Citizen citizen)
+            {
+                if (citizen.Inventory.Count > 0)
+                {
+                    int itemIndex = Random.Shared.Next(0, citizen.Inventory.Count);
+                    Inventory.Add(citizen.Inventory[itemIndex]);
+                    citizen.Inventory.RemoveAt(itemIndex);
+                }
             }
         }
 
-        public class Police : Person
+        internal class Police : Person
         {
-            public Police(int xMax, int yMax, Random rand) : base(xMax, yMax, rand)
+            public Police() : base()
             {
-                Char police = 'P';
+                Char = 'P';
             }
 
+            public void CatchTheif(Thief thief)
+            {
+                foreach (Item item in thief.Inventory)
+                {
+                    Inventory.Add(item);
+                    
+                }
+
+                thief.Inventory.Clear();
+            }
         }
     }
 
-}
