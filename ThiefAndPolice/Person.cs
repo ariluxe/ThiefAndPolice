@@ -23,51 +23,65 @@ namespace ThiefAndPolice
             PositionY = Random.Shared.Next(0, city.CityHeight);
             PositionX = Random.Shared.Next(0, city.CityWidth);
 
-            MovementDirection = Random.Shared.Next(0, 8);
+            MovementDirection = Random.Shared.Next(0, 9);
 
             Inventory = new List<Item>();
         }
 
-        public void Movement()
+        public void Movement(City city)
         {
             switch (MovementDirection)
             {
-                case 0:
-                    PositionX++;
+                case 0: //Höger
+                    if (PositionX < city.CityWidth-1) { PositionX++; }
+                    else { PositionX = 0; }
                     break;
-                case 1:
-                    PositionY++;
+                case 1: //Ner
+                    if (PositionY < city.CityHeight-1) { PositionY++; }
+                    else { PositionY = 0; }
                     break;
-                case 2:
-                    PositionX--;
+                case 2: //Vänster
+                    if (PositionX > 0) { PositionX--; }
+                    else { PositionX = city.CityWidth-1; }
                     break;
-                case 3:
-                    PositionY--;
+                case 3://Upp
+                    if (PositionY > 0) { PositionY--; }
+                    else { PositionY = city.CityHeight - 1; }
                     break;
-                case 4:
-                    PositionX++;
-                    PositionY--;
+                case 4://HögerUpp
+                    if (PositionX < city.CityWidth - 1) { PositionX++; }
+                    else { PositionX = 0; }
+                    if (PositionY > 0) { PositionY--; }
+                    else { PositionY = city.CityHeight - 1; }
                     break;
-                case 5:
-                    PositionX--;
-                    PositionY--;
+                case 5://VänsterUpp
+                    if (PositionX > 0) { PositionX--; }
+                    else { PositionX = city.CityWidth - 1; }
+                    if (PositionY > 0) { PositionY--; }
+                    else { PositionY = city.CityHeight - 1; }
                     break;
-                case 6:
-                    PositionX++;
-                    PositionY++;
+                case 6://HögerNer
+                    if (PositionX < city.CityWidth - 1) { PositionX++; }
+                    else { PositionX = 0; }
+                    if (PositionY < city.CityHeight - 1) { PositionY++; }
+                    else { PositionY = 0; }
                     break;
-                case 7:
-                    PositionX--;
-                    PositionY++;
+                case 7://VänsterNer
+                    if (PositionX > 0) { PositionX--; }
+                    else { PositionX = city.CityWidth - 1; }
+                    if (PositionY < city.CityHeight - 1) { PositionY++; }
+                    else { PositionY = 0; }
+                    break;
+                case 8://Stilla
                     break;
             }
 
             // Kontrollera att personen inte går utanför stadens gränser
-            PositionX = PositionX >= city.CityWidth ? 0 : PositionX;
-            PositionX = PositionX < 0 ? city.CityWidth : PositionX;
+            //PositionX = PositionX >= city.CityWidth ? 0 : PositionX;
+            //PositionX = PositionX < 0 ? city.CityWidth : PositionX;
             
-            PositionY = PositionY >= city.CityHeight ? 0 : PositionY;
-            PositionY = PositionY < 0 ? city.CityHeight : PositionY;
+            //PositionY = PositionY >= city.CityHeight ? 0 : PositionY;
+            //PositionY = PositionY < 0 ? city.CityHeight : PositionY;
         }
     }
 

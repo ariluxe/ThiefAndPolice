@@ -45,6 +45,43 @@ internal class City
         return result;
     }
 
+    public void DrawCity(List<Person> inhabitants)
+    {
+        char[,] cityGrid = new char[CityHeight, CityWidth];
+
+        for(int row = 0; row < CityHeight; row++)
+        {
+            for(int col = 0; col < CityWidth; col++)
+            {
+                cityGrid[row, col] = ' ';
+            }
+        }
+        foreach(Person person in inhabitants)
+        {
+            cityGrid[person.PositionY, person.PositionX] = person.Char;
+        }
+
+        Console.WriteLine("= CITY " + new string('=', CityWidth - 5));
+        for (int row = 0; row < CityHeight; row++)
+        {
+            Console.Write("X");
+            for (int col = 0; col < CityWidth; col++)
+            {
+                char marker = cityGrid[row, col];
+                if (marker == 'P') Console.ForegroundColor = ConsoleColor.Blue;
+                else if (marker == 'T') Console.ForegroundColor = ConsoleColor.Red;
+                else if (marker == 'C') Console.ForegroundColor = ConsoleColor.Green;
+
+                Console.Write(marker);
+                Console.ResetColor();
+            }
+            Console.WriteLine("X");
+        }
+        Console.WriteLine(new string('=', CityWidth+2));
+    }
+        
+    
+
     //Lägg Till Polis
     //public void AddPolice(Police police)
     //{

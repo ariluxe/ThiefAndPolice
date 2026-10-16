@@ -56,6 +56,21 @@
             }
 
 
+            while (true)
+            {
+                city.DrawCity(city.People);
+
+                foreach(Person person in city.People)
+                {
+                    person.Movement(city);                   
+                }
+                Console.WriteLine(city.ToString());
+
+                Console.ReadKey();
+                Console.Clear();
+            }
+
+
             // Stadens storlek
             //const int CityWidth = 100;
             //const int CityWith = 25;
