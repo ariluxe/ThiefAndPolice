@@ -4,16 +4,12 @@ namespace ThiefAndPolice;
 
 internal class City
 {
-
-    //Lista med personer i staden
     public List<Person> People { get; private set; }
 
     public List<Thief> Prison { get; private set; }
 
     public int CityWidth { get; set; }
     public int CityHeight { get; set; }
-
-
 
 
     public City(int width, int height, int numberOfPolice, int numberOfThieves, int numberOfCitizens)
@@ -38,8 +34,6 @@ internal class City
             People.Add(new Citizen(this));
         }
     }
-
-
 
     public string ToString()
     {
@@ -85,12 +79,4 @@ internal class City
         }
         Console.WriteLine(new string('=', CityWidth+2));
     }
-        
-    
-
-    //Lägg Till Polis
-    //public void AddPolice(Police police)
-    //{
-    //    People.Add(police);
-    //}
 }

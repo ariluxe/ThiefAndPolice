@@ -8,11 +8,11 @@ namespace ThiefAndPolice
     internal class Person
     {
         private City city;
+
+        public string Name { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public int MovementDirection { get; set; }
-        //public int MovementDirectionX {get; set; }
-        //public int MovementDirectionY {get; set; }
         public List<Item> Inventory { get; set; }
 
         public char Char { get; set; }
@@ -20,11 +20,11 @@ namespace ThiefAndPolice
         public Person(City city)
         {
             this.city = city;
+            Name =  Random.Shared.Next(0, 10000).ToString();
             PositionY = Random.Shared.Next(0, city.CityHeight);
             PositionX = Random.Shared.Next(0, city.CityWidth);
 
             MovementDirection = Random.Shared.Next(0, 9);
-
             Inventory = new List<Item>();
         }
 
@@ -33,16 +33,16 @@ namespace ThiefAndPolice
             switch (MovementDirection)
             {
                 case 0: //Höger
-                    if (PositionX < city.CityWidth-1) { PositionX++; }
+                    if (PositionX < city.CityWidth - 1) { PositionX++; }
                     else { PositionX = 0; }
                     break;
                 case 1: //Ner
-                    if (PositionY < city.CityHeight-1) { PositionY++; }
+                    if (PositionY < city.CityHeight - 1) { PositionY++; }
                     else { PositionY = 0; }
                     break;
                 case 2: //Vänster
                     if (PositionX > 0) { PositionX--; }
-                    else { PositionX = city.CityWidth-1; }
+                    else { PositionX = city.CityWidth - 1; }
                     break;
                 case 3://Upp
                     if (PositionY > 0) { PositionY--; }
@@ -75,18 +75,8 @@ namespace ThiefAndPolice
                 case 8://Stilla
                     break;
             }
-
-            // Kontrollera att personen inte går utanför stadens gränser
-            //PositionX = PositionX >= city.CityWidth ? 0 : PositionX;
-            //PositionX = PositionX < 0 ? city.CityWidth : PositionX;
-            
-            //PositionY = PositionY >= city.CityHeight ? 0 : PositionY;
-            //PositionY = PositionY < 0 ? city.CityHeight : PositionY;
         }
     }
-
-
-    // Subklasser
 
     internal class Citizen : Person
     {
@@ -100,23 +90,18 @@ namespace ThiefAndPolice
         }
     }
 
-
     internal class Thief : Person
     {
         public Thief(City city) : base(city)
         {
             Char = 'T';
-
         }
 
         public void Robbery(Citizen citizen)
         {
-            if (citizen.Inventory.Count > 0)
-            {
-                int itemIndex = Random.Shared.Next(0, citizen.Inventory.Count);
-                Inventory.Add(citizen.Inventory[itemIndex]);
-                citizen.Inventory.RemoveAt(itemIndex);
-            }
+            int itemIndex = Random.Shared.Next(0, citizen.Inventory.Count);
+            Inventory.Add(citizen.Inventory[itemIndex]);
+            citizen.Inventory.RemoveAt(itemIndex);
         }
     }
 

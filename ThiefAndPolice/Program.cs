@@ -2,59 +2,15 @@
 {
     internal class Program
     {
-        // Statistik och logg
         public static int CitizensRobbed = 0;
         public static int ArrestedThieves = 0;
-        
 
         static void Main(string[] args)
         {
 
-            //Skapa Stad
             City city = new City(width: 100, height: 25, numberOfPolice: 10, numberOfThieves: 20, numberOfCitizens: 30);
-            // while (true) {
-            // city.UpdateMovement();
-            // city.UpdateInteractions();
-            // city.Render();
-            //}
 
-            Police police1 = new Police(city);
-            Thief thief1 = new Thief(city);
-            Citizen citizen1 = new Citizen(city);
-
-            Console.WriteLine("Invånare inventory: ");
-            foreach (Item item in citizen1.Inventory)
-            {
-                Console.WriteLine(item.Name);
-            }
-
-            Console.WriteLine("--------------");
-
-            thief1.Robbery(citizen1);
-
-            foreach (Item item in citizen1.Inventory)
-            {
-                Console.WriteLine(item.Name);
-            }
-            Console.WriteLine("----------------------");
-            foreach (Item item in thief1.Inventory)
-            {
-                Console.WriteLine(item.Name);
-            }
-
-            Console.WriteLine("------------------------");
-
-            police1.CatchTheif(thief1);
-            foreach (Item item in thief1.Inventory)
-            {
-                Console.WriteLine(item.Name);
-            }
-            Console.WriteLine("---------------------------");
-            foreach (Item item in police1.Inventory)
-            {
-                Console.WriteLine(item.Name);
-            }
-
+            Newsfeed newsFeed = new Newsfeed();
 
             while (true)
             {
@@ -64,21 +20,16 @@
                 {
                     person.Movement(city);                   
                 }
-                Events.Meeting(city);
+                Events.Meeting(city, newsFeed);
 
                 Console.WriteLine("Arresterade tjuvar: " + ArrestedThieves);
                 Console.WriteLine("Rånade invånare: " + CitizensRobbed);
 
+                newsFeed.printNews();
+
                 Console.ReadKey();
                 Console.Clear();
             }
-
-
-            // Stadens storlek
-            //const int CityWidth = 100;
-            //const int CityWith = 25;
-
-
         }
     }
 }
