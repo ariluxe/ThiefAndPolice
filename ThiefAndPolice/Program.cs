@@ -3,9 +3,9 @@
     internal class Program
     {
         // Statistik och logg
-        static int CitizensRobbed = 0;
-        static int ArrestedThieves = 0;
-        static List<string> NewsFeed = new List<string>();
+        public static int CitizensRobbed = 0;
+        public static int ArrestedThieves = 0;
+        
 
         static void Main(string[] args)
         {
@@ -64,7 +64,10 @@
                 {
                     person.Movement(city);                   
                 }
-                Console.WriteLine(city.ToString());
+                Events.Meeting(city);
+
+                Console.WriteLine("Arresterade tjuvar: " + ArrestedThieves);
+                Console.WriteLine("Rånade invånare: " + CitizensRobbed);
 
                 Console.ReadKey();
                 Console.Clear();
