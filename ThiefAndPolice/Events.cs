@@ -6,7 +6,7 @@ namespace ThiefAndPolice
 {
     internal class Events
     {
-        public static bool Meeting(City city, Newsfeed newsFeed)
+        public static bool Meeting(Place city, Place prison,  Newsfeed newsFeed)
         {
             foreach (Thief thief in city.People.OfType<Thief>())
             {
@@ -33,10 +33,11 @@ namespace ThiefAndPolice
                 {
                     if (police.PositionX == thief.PositionX && police.PositionY == thief.PositionY)
                     {
-                        police.CatchTheif(thief);
+                        police.CatchThief(thief);
                         newsFeed.AddNews(newsFeed.AnnounceArrest(thief, police));
-
-                        city.Prison.Add(thief);
+                        thief.PositionX = Random.Shared.Next(0, prison.Width);
+                        thief.PositionY = Random.Shared.Next(0, prison.Height);
+                        prison.People.Add(thief);
                         city.People.Remove(thief);
                         Program.ArrestedThieves++;
 

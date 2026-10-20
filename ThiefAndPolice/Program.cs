@@ -7,28 +7,32 @@
 
         static void Main(string[] args)
         {
-
-            City city = new City(width: 100, height: 25, numberOfPolice: 10, numberOfThieves: 20, numberOfCitizens: 30);
-
+            Console.CursorVisible= false;
+            City city = new City(width: 100, height: 25, numberOfPolice: 10, numberOfThieves: 20, numberOfCitizens: 30, name:"Ankeborg");
+            Prison prison = new Prison(width: 10, height: 10, name: "Kumlabunkern");
+            Poorhouse poorhouse = new Poorhouse(width: 50, height: 10, name: "Fattigstugan");
             Newsfeed newsFeed = new Newsfeed();
+            Console.ReadKey();
 
             while (true)
             {
                 city.DrawCity(city.People);
 
-                foreach(Person person in city.People)
-                {
-                    person.Movement(city);                   
-                }
-                Events.Meeting(city, newsFeed);
+
+                city.Movement();
+                prison.Movement();
+                poorhouse.Movement();
+
+                if (Events.Meeting(city, prison, newsFeed))
+                    Thread.Sleep(200);
 
                 Console.WriteLine("Arresterade tjuvar: " + ArrestedThieves);
                 Console.WriteLine("Rånade invånare: " + CitizensRobbed);
 
                 newsFeed.printNews();
 
-                Console.ReadKey();
-                Console.Clear();
+                
+                Console.SetCursorPosition(0, 0);
             }
         }
     }

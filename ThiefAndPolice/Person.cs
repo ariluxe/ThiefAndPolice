@@ -7,7 +7,7 @@ namespace ThiefAndPolice
 {
     internal class Person
     {
-        private City city;
+        private Place city;
 
         public string Name { get; set; }
         public int PositionX { get; set; }
@@ -17,59 +17,59 @@ namespace ThiefAndPolice
 
         public char Char { get; set; }
 
-        public Person(City city)
+        public Person(Place city)
         {
             this.city = city;
             Name =  Random.Shared.Next(0, 10000).ToString();
-            PositionY = Random.Shared.Next(0, city.CityHeight);
-            PositionX = Random.Shared.Next(0, city.CityWidth);
+            PositionY = Random.Shared.Next(0, city.Height);
+            PositionX = Random.Shared.Next(0, city.Width);
 
             MovementDirection = Random.Shared.Next(0, 9);
             Inventory = new List<Item>();
         }
 
-        public void Movement(City city)
+        public void Movement(int xMax, int yMax)
         {
             switch (MovementDirection)
             {
                 case 0: //Höger
-                    if (PositionX < city.CityWidth - 1) { PositionX++; }
+                    if (PositionX < xMax - 1) { PositionX++; }
                     else { PositionX = 0; }
                     break;
                 case 1: //Ner
-                    if (PositionY < city.CityHeight - 1) { PositionY++; }
+                    if (PositionY < yMax - 1) { PositionY++; }
                     else { PositionY = 0; }
                     break;
                 case 2: //Vänster
                     if (PositionX > 0) { PositionX--; }
-                    else { PositionX = city.CityWidth - 1; }
+                    else { PositionX = xMax - 1; }
                     break;
                 case 3://Upp
                     if (PositionY > 0) { PositionY--; }
-                    else { PositionY = city.CityHeight - 1; }
+                    else { PositionY = yMax - 1; }
                     break;
                 case 4://HögerUpp
-                    if (PositionX < city.CityWidth - 1) { PositionX++; }
+                    if (PositionX < xMax - 1) { PositionX++; }
                     else { PositionX = 0; }
                     if (PositionY > 0) { PositionY--; }
-                    else { PositionY = city.CityHeight - 1; }
+                    else { PositionY = yMax - 1; }
                     break;
                 case 5://VänsterUpp
                     if (PositionX > 0) { PositionX--; }
-                    else { PositionX = city.CityWidth - 1; }
+                    else { PositionX = xMax - 1; }
                     if (PositionY > 0) { PositionY--; }
-                    else { PositionY = city.CityHeight - 1; }
+                    else { PositionY = yMax - 1; }
                     break;
                 case 6://HögerNer
-                    if (PositionX < city.CityWidth - 1) { PositionX++; }
+                    if (PositionX < xMax - 1) { PositionX++; }
                     else { PositionX = 0; }
-                    if (PositionY < city.CityHeight - 1) { PositionY++; }
+                    if (PositionY < yMax - 1) { PositionY++; }
                     else { PositionY = 0; }
                     break;
                 case 7://VänsterNer
                     if (PositionX > 0) { PositionX--; }
-                    else { PositionX = city.CityWidth - 1; }
-                    if (PositionY < city.CityHeight - 1) { PositionY++; }
+                    else { PositionX = xMax - 1; }
+                    if (PositionY < yMax - 1) { PositionY++; }
                     else { PositionY = 0; }
                     break;
                 case 8://Stilla
@@ -80,7 +80,7 @@ namespace ThiefAndPolice
 
     internal class Citizen : Person
     {
-        public Citizen(City city) : base(city)
+        public Citizen(Place city) : base(city)
         {
             Char = 'C';
             Inventory.Add(new Item("Keys"));
@@ -92,7 +92,8 @@ namespace ThiefAndPolice
 
     internal class Thief : Person
     {
-        public Thief(City city) : base(city)
+        public DateTime SentenceEndTime { get; set; } // När tjuven får dra
+        public Thief(Place city) : base(city)
         {
             Char = 'T';
         }
@@ -107,21 +108,26 @@ namespace ThiefAndPolice
 
     internal class Police : Person
     {
-        public Police(City city) : base(city)
+        public Police(Place city) : base(city)
         {
             Char = 'P';
         }
 
-        public void CatchTheif(Thief thief)
+        public void CatchThief(Thief thief)
         {
-            foreach (Item item in thief.Inventory)
+            if (thief.Inventory.Count >= 1)
             {
-                Inventory.Add(item);
 
+
+                foreach (Item item in thief.Inventory)
+                {
+                    Inventory.Add(item);
+
+                }
+
+                thief.Inventory.Clear();
             }
-
-            thief.Inventory.Clear();
+            }
         }
-    }
 }
 
