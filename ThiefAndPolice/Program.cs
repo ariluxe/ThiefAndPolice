@@ -32,16 +32,18 @@
                     switch (keyInfo.Key)
                     {
                         case ConsoleKey.C:
-                            // Action for C key
+                            Citizen citizen = new Citizen(city);
+                            city.People.Add(citizen);
+                            newsFeed.AnnounceMoveIn(citizen);
                             break;
                         case ConsoleKey.T:
-                            // Action for T key
+                            city.People.Add(new Thief(city));
                             break;
                         case ConsoleKey.P:
-                            // Action for P key
+                            city.People.Add(new Police(city));
                             break;
                         default:
-                            // Handle other keys if necessary
+                            Console.Clear();
                             break;
                     }
                 }
@@ -56,6 +58,7 @@
 
                 
                 Console.SetCursorPosition(0, 0);
+                Thread.Sleep(100);
             }
         }
     }
