@@ -6,7 +6,7 @@ namespace ThiefAndPolice
 {
     internal class Events
     {
-        public static bool Meeting(Place city, Place prison,  Newsfeed newsFeed)
+        public static bool Meeting(Place city, Place prison, Place poorhouse, Newsfeed newsFeed)
         {
             foreach (Thief thief in city.People.OfType<Thief>())
             {
@@ -20,9 +20,21 @@ namespace ThiefAndPolice
                             thief.Robbery(citizen);
                             newsFeed.AddNews(newsFeed.AnnounceRobbery(thief, citizen));
                             Program.CitizensRobbed++;
+                            
+
+                            if (citizen.Inventory.Count == 0)
+                            {
+                                citizen.PositionX = Random.Shared.Next(0, poorhouse.Width);
+                                citizen.PositionY = Random.Shared.Next(0, poorhouse.Height);
+                                city.People.Remove(citizen);
+                                poorhouse.People.Add(citizen);
+
+                            }
+
                             return true;
                         }
                     }
+
                 }
             }
 
@@ -33,15 +45,20 @@ namespace ThiefAndPolice
                 {
                     if (police.PositionX == thief.PositionX && police.PositionY == thief.PositionY)
                     {
-                        police.CatchThief(thief);
-                        newsFeed.AddNews(newsFeed.AnnounceArrest(thief, police));
-                        thief.PositionX = Random.Shared.Next(0, prison.Width);
-                        thief.PositionY = Random.Shared.Next(0, prison.Height);
-                        prison.People.Add(thief);
-                        city.People.Remove(thief);
-                        Program.ArrestedThieves++;
 
-                        return true;
+                        if (police.CatchThief(thief))
+                        {
+                            newsFeed.AddNews(newsFeed.AnnounceArrest(thief, police));
+                            thief.PositionX = Random.Shared.Next(0, prison.Width);
+                            thief.PositionY = Random.Shared.Next(0, prison.Height);
+
+                            prison.People.Add(thief);
+                            city.People.Remove(thief);
+                            Program.ArrestedThieves++;
+
+                            return true;
+
+                        }
                     }
 
                 }

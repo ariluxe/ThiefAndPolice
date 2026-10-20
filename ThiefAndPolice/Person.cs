@@ -113,11 +113,11 @@ namespace ThiefAndPolice
             Char = 'P';
         }
 
-        public void CatchThief(Thief thief)
+        public bool CatchThief(Thief thief)
         {
             if (thief.Inventory.Count >= 1)
             {
-
+                thief.SentenceEndTime = DateTime.Now.AddSeconds(thief.Inventory.Count * 10);
 
                 foreach (Item item in thief.Inventory)
                 {
@@ -125,8 +125,13 @@ namespace ThiefAndPolice
 
                 }
 
+                
                 thief.Inventory.Clear();
+
+                return true;
             }
+
+            return false;
             }
         }
 }

@@ -95,6 +95,21 @@ internal class Prison : Place
     {
         
     }
+
+    public void CheckRelease(City city)
+    {
+        for (int i = People.Count - 1; i >= 0; i--)
+        {
+            if (People[i] is Thief thief && DateTime.Now >= thief.SentenceEndTime)
+            {
+                People.RemoveAt(i);
+                thief.PositionX = Random.Shared.Next(0, city.Width);
+                thief.PositionY = Random.Shared.Next(0, city.Height);
+                city.People.Add(thief);
+                Program.ArrestedThieves--;
+            }
+        }
+    }
 }
 internal class Poorhouse : Place
 {

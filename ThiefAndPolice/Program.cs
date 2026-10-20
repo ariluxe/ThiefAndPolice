@@ -16,6 +16,9 @@
 
             while (true)
             {
+               
+
+                prison.CheckRelease(city);
                 city.DrawCity(city.People);
 
 
@@ -23,7 +26,27 @@
                 prison.Movement();
                 poorhouse.Movement();
 
-                if (Events.Meeting(city, prison, newsFeed))
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.C:
+                            // Action for C key
+                            break;
+                        case ConsoleKey.T:
+                            // Action for T key
+                            break;
+                        case ConsoleKey.P:
+                            // Action for P key
+                            break;
+                        default:
+                            // Handle other keys if necessary
+                            break;
+                    }
+                }
+
+                if (Events.Meeting(city, prison, poorhouse, newsFeed))
                     Thread.Sleep(200);
 
                 Console.WriteLine("Arresterade tjuvar: " + ArrestedThieves);
