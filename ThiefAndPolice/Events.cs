@@ -19,7 +19,6 @@ namespace ThiefAndPolice
                         {
                             thief.Robbery(citizen);
                             newsFeed.AddNews(newsFeed.AnnounceRobbery(thief, citizen));
-                            Program.CitizensRobbed++;
                             
 
                             if (citizen.Inventory.Count == 0)
@@ -54,7 +53,6 @@ namespace ThiefAndPolice
 
                             prison.People.Add(thief);
                             city.People.Remove(thief);
-                            Program.ArrestedThieves++;
 
                             return true;
 

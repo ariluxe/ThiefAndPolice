@@ -3,7 +3,6 @@
     internal class Program
     {
         public static int CitizensRobbed = 0;
-        public static int ArrestedThieves = 0;
 
         static void Main(string[] args)
         {
@@ -20,6 +19,8 @@
 
                 prison.CheckRelease(city);
                 city.DrawCity(city.People);
+                prison.DrawPrison(prison.People);
+                poorhouse.DrawPoorhouse(poorhouse.People);
 
 
                 city.Movement();
@@ -34,13 +35,17 @@
                         case ConsoleKey.C:
                             Citizen citizen = new Citizen(city);
                             city.People.Add(citizen);
-                            newsFeed.AnnounceMoveIn(citizen);
+                            newsFeed.AddNews(newsFeed.AnnounceMoveIn(citizen));
                             break;
                         case ConsoleKey.T:
+                            Thief thief = new Thief(city);
                             city.People.Add(new Thief(city));
+                            newsFeed.AddNews(newsFeed.AnnounceMoveIn(thief));
                             break;
                         case ConsoleKey.P:
+                            Police police = new Police(city);
                             city.People.Add(new Police(city));
+                            newsFeed.AddNews(newsFeed.AnnounceMoveIn(police));
                             break;
                         default:
                             Console.Clear();
@@ -51,7 +56,7 @@
                 if (Events.Meeting(city, prison, poorhouse, newsFeed))
                     Thread.Sleep(200);
 
-                Console.WriteLine("Arresterade tjuvar: " + ArrestedThieves);
+                city.ThiefTracker();
                 Console.WriteLine("Rånade invånare: " + CitizensRobbed);
 
                 newsFeed.printNews();

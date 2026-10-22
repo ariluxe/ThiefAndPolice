@@ -26,32 +26,33 @@ internal class Newsfeed
 
     public string AnnounceRobbery(Thief thief, Citizen citizen)
     {
-        return $"Tjuven {thief.Name} rånade medborgare {citizen.Name}";
+        return $"Tjuven {thief.Name} rånade medborgare {citizen.Name}".PadRight(60);
     }
 
     public string AnnounceArrest(Thief thief, Police police)
     {
-        return $"Polisen {police.Name} arresterarde tjuven {thief.Name}";
+        return $"Polisen {police.Name} arresterarde tjuven {thief.Name}".PadRight(60);
     }
-    public static string AnnounceMoveIn(Person person)
+    public string AnnounceMoveIn(Person person)
     {
         switch (person.GetType().Name)
         {
             case "Thief":
 
                 return $"Tjuven gör nu stadens gator osäkra.";
-                break;
+                
 
             case "Citizen":
 
                 return $"Medborgaren flyttade in i staden. Välkommen!";
-                break;
+                
 
             case "Police":
 
                 return $"Konstapel är nu i tjänst i staden.";
-                break;
+               
         }
+        return null;
     }
     internal void printNews()
     {
