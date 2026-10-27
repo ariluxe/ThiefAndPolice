@@ -63,7 +63,6 @@
 
                 newsFeed.printNews();
 
-                
                 Console.SetCursorPosition(0, 0);
                 Thread.Sleep(100);
             }

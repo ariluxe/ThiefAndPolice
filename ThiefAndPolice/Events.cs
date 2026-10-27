@@ -24,7 +24,7 @@ namespace ThiefAndPolice
                         {
                             thief.Robbery(citizen);
                             newsFeed.AddNews(newsFeed.AnnounceRobbery(thief, citizen));
-
+                            Program.CitizensRobbed++;
 
                             if (citizen.Inventory.Count == 0)
                             {
@@ -32,7 +32,6 @@ namespace ThiefAndPolice
                                 citizen.Y = Random.Shared.Next(0, poorhouse.Height);
                                 city.People.Remove(citizen);
                                 poorhouse.People.Add(citizen);
-
                             }
                             result = true;
                         }
