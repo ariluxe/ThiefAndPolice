@@ -62,7 +62,7 @@ internal class Place
         }
         foreach(Person person in inhabitants)
         {
-            cityGrid[person.PositionY, person.PositionX] = person.Char;
+            cityGrid[person.Y, person.X] = person.Char;
         }
 
         Console.WriteLine("= CITY " + new string('=', Width - 6));
@@ -91,7 +91,7 @@ internal class Place
         {
             count++;
         }
-        Console.WriteLine($"Tjuvar på fri fot: {count}");
+        Console.WriteLine($"Thieves on the run: {count}");
     }
 }
 internal class Prison : Place
@@ -114,7 +114,7 @@ internal class Prison : Place
         }
         foreach (Person person in prisoners)
         {
-            prisonGrid[person.PositionY, person.PositionX] = person.Char;
+            prisonGrid[person.Y, person.X] = person.Char;
         }
 
         Console.WriteLine("= PRISON " + new string('=', Width - 7));
@@ -140,8 +140,8 @@ internal class Prison : Place
             if (People[i] is Thief thief && DateTime.Now >= thief.SentenceEndTime)
             {
                 People.RemoveAt(i);
-                thief.PositionX = Random.Shared.Next(0, city.Width);
-                thief.PositionY = Random.Shared.Next(0, city.Height);
+                thief.X = Random.Shared.Next(0, city.Width);
+                thief.Y = Random.Shared.Next(0, city.Height);
                 city.People.Add(thief);
             }
         }
@@ -167,7 +167,7 @@ internal class Poorhouse : Place
         }
         foreach (Person person in poorPeople)
         {
-            poorGrid[person.PositionY, person.PositionX] = person.Char;
+            poorGrid[person.Y, person.X] = person.Char;
         }
 
         Console.WriteLine("= POORHOUSE " + new string('=', Width - 10));

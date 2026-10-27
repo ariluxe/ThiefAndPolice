@@ -10,8 +10,8 @@ namespace ThiefAndPolice
         private Place city;
 
         public string Name { get; set; }
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public int MovementDirection { get; set; }
         public List<Item> Inventory { get; set; }
 
@@ -21,8 +21,8 @@ namespace ThiefAndPolice
         {
             this.city = city;
             Name =  Random.Shared.Next(0, 10000).ToString();
-            PositionY = Random.Shared.Next(0, city.Height);
-            PositionX = Random.Shared.Next(0, city.Width);
+            Y = Random.Shared.Next(0, city.Height);
+            X = Random.Shared.Next(0, city.Width);
 
             MovementDirection = Random.Shared.Next(0, 9);
             Inventory = new List<Item>();
@@ -33,44 +33,44 @@ namespace ThiefAndPolice
             switch (MovementDirection)
             {
                 case 0: //Höger
-                    if (PositionX < xMax - 1) { PositionX++; }
-                    else { PositionX = 0; }
+                    if (X < xMax - 1) { X++; }
+                    else { X = 0; }
                     break;
                 case 1: //Ner
-                    if (PositionY < yMax - 1) { PositionY++; }
-                    else { PositionY = 0; }
+                    if (Y < yMax - 1) { Y++; }
+                    else { Y = 0; }
                     break;
                 case 2: //Vänster
-                    if (PositionX > 0) { PositionX--; }
-                    else { PositionX = xMax - 1; }
+                    if (X > 0) { X--; }
+                    else { X = xMax - 1; }
                     break;
                 case 3://Upp
-                    if (PositionY > 0) { PositionY--; }
-                    else { PositionY = yMax - 1; }
+                    if (Y > 0) { Y--; }
+                    else { Y = yMax - 1; }
                     break;
                 case 4://HögerUpp
-                    if (PositionX < xMax - 1) { PositionX++; }
-                    else { PositionX = 0; }
-                    if (PositionY > 0) { PositionY--; }
-                    else { PositionY = yMax - 1; }
+                    if (X < xMax - 1) { X++; }
+                    else { X = 0; }
+                    if (Y > 0) { Y--; }
+                    else { Y = yMax - 1; }
                     break;
                 case 5://VänsterUpp
-                    if (PositionX > 0) { PositionX--; }
-                    else { PositionX = xMax - 1; }
-                    if (PositionY > 0) { PositionY--; }
-                    else { PositionY = yMax - 1; }
+                    if (X > 0) { X--; }
+                    else { X = xMax - 1; }
+                    if (Y > 0) { Y--; }
+                    else { Y = yMax - 1; }
                     break;
                 case 6://HögerNer
-                    if (PositionX < xMax - 1) { PositionX++; }
-                    else { PositionX = 0; }
-                    if (PositionY < yMax - 1) { PositionY++; }
-                    else { PositionY = 0; }
+                    if (X < xMax - 1) { X++; }
+                    else { X = 0; }
+                    if (Y < yMax - 1) { Y++; }
+                    else { Y = 0; }
                     break;
                 case 7://VänsterNer
-                    if (PositionX > 0) { PositionX--; }
-                    else { PositionX = xMax - 1; }
-                    if (PositionY < yMax - 1) { PositionY++; }
-                    else { PositionY = 0; }
+                    if (X > 0) { X--; }
+                    else { X = xMax - 1; }
+                    if (Y < yMax - 1) { Y++; }
+                    else { Y = 0; }
                     break;
                 case 8://Stilla
                     break;

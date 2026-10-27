@@ -26,12 +26,12 @@ internal class Newsfeed
 
     public string AnnounceRobbery(Thief thief, Citizen citizen)
     {
-        return $"Tjuven {thief.Name} rånade medborgare {citizen.Name}".PadRight(60);
+        return $"Thief {thief.Name} robbed citizen {citizen.Name}".PadRight(60);
     }
 
     public string AnnounceArrest(Thief thief, Police police)
     {
-        return $"Polisen {police.Name} arresterarde tjuven {thief.Name}".PadRight(60);
+        return $"Police {police.Name} arrested the thief {thief.Name}".PadRight(60);
     }
     public string AnnounceMoveIn(Person person)
     {
@@ -39,17 +39,17 @@ internal class Newsfeed
         {
             case "Thief":
 
-                return $"Tjuven gör nu stadens gator osäkra.";
+                return $"The thief {person.Name} is now back on the streets again.";
                 
 
             case "Citizen":
 
-                return $"Medborgaren flyttade in i staden. Välkommen!";
+                return $"Citizen {person.Name} has moved into the city. Welcome!";
                 
 
             case "Police":
 
-                return $"Konstapel är nu i tjänst i staden.";
+                return $"Police {person.Name} is now back in the city.";
                
         }
         return null;
