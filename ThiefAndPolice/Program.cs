@@ -53,8 +53,7 @@
                     }
                 }
 
-                //if (Events.Meeting(city, prison, poorhouse, newsFeed))
-                //    Thread.Sleep(200);
+
                 if (Events.MeetingThief(city, prison, poorhouse, newsFeed) || Events.MeetingPolice(city, prison, poorhouse, newsFeed))
                     Thread.Sleep(200);
 

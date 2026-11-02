@@ -39,24 +39,23 @@ internal class Newsfeed
         {
             case "Thief":
 
-                return $"The thief {person.Name} is now back on the streets again.";
+                return $"The thief {person.Name} is now back on the streets again.".PadRight(60);
                 
 
             case "Citizen":
 
-                return $"Citizen {person.Name} has moved into the city. Welcome!";
+                return $"Citizen {person.Name} has moved into the city. Welcome!".PadRight(60);
                 
 
             case "Police":
 
-                return $"Police {person.Name} is now back in the city.";
+                return $"Police {person.Name} is now back in the city.".PadRight(60);
                
         }
         return null;
     }
     internal void printNews()
     {
-        //for ( int i = 0; i < News.Count; i++  ) {
         int i = 1;
         foreach (string s in News)
         {
